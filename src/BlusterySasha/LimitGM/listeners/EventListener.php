@@ -1,6 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
+namespace BlusterySasha\LimitGM\listeners;
+
 use pocketmine\block\Block;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -13,7 +16,7 @@ use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 use pocketmine\Player;
 
 class EventListener implements Listener {
-	public function onPlace(BlockPlaceEvent $event) {
+	public function onPlace(BlockPlaceEvent $event) : void {
 		$player = $event->getPlayer();
 		if ($player->hasPermission("limitgm.bypass")) {
 			return;
@@ -26,7 +29,7 @@ class EventListener implements Listener {
 		}
 	}
 
-	public function onPlayerGameModeChange(PlayerGameModeChangeEvent $event) {
+	public function onPlayerGameModeChange(PlayerGameModeChangeEvent $event) : void {
 		$player = $event->getPlayer();
 		if ($player->hasPermission("limitgm.bypass")) {
 			return;
@@ -38,7 +41,7 @@ class EventListener implements Listener {
 		$this->sendExplode($player);
 	}
 
-	public function onInteract(PlayerInteractEvent $event) {
+	public function onInteract(PlayerInteractEvent $event) : void {
 		$player = $event->getPlayer();
 		if (!$player->isCreative() || $player->hasPermission("limitgm.bypass")) {
 			return;
@@ -51,7 +54,7 @@ class EventListener implements Listener {
 		}
 	}
 
-	public function onPlayerDeath(PlayerDeathEvent $event) {
+	public function onPlayerDeath(PlayerDeathEvent $event) : void {
 		$player = $event->getPlayer();
 		if (!$player->isCreative() || $player->hasPermission("limitgm.bypass")) {
 			return;
@@ -62,7 +65,7 @@ class EventListener implements Listener {
 		$this->sendExplode($player);
 	}
 
-	public function onDropItem(PlayerDropItemEvent $event) {
+	public function onDropItem(PlayerDropItemEvent $event) : void {
 		$player = $event->getPlayer();
 		if (!$player->isCreative() || $player->hasPermission("limitgm.bypass")) {
 			return;
@@ -72,7 +75,7 @@ class EventListener implements Listener {
 		$this->sendExplode($player);
 	}
 
-	public function onAttack(EntityDamageByEntityEvent $event) {
+	public function onAttack(EntityDamageByEntityEvent $event) : void {
 		$player = $event->getDamager();
 		if (!($player instanceof Player) || !$player->isCreative() || $player->hasPermission("limitgm.bypass")) {
 			return;
